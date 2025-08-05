@@ -12,6 +12,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Xcode
         run: sudo xcode-select -s /Applications/Xcode_15.0.app
+      - name: List Xcode Schemes
+        run: |
+          if [ -f HeartControl.xcworkspace ]; then
+            xcodebuild -list -workspace HeartControl.xcworkspace
+          else
+            xcodebuild -list -project HeartControl.xcodeproj
+          fi
       - name: Build .ipa
         run: |
           xcodebuild -scheme YourScheme -sdk iphoneos -configuration Release archive -archivePath $PWD/build/App.xcarchive
